@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muhammad Ali Asif — Portfolio
 
-## Getting Started
+A cinematic, dark single-page portfolio built from the résumé in `public/Muhammad_Ali_Asif_Resume.pdf`.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Turbopack) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** (theme tokens in `src/app/globals.css`)
+- **GSAP + ScrollTrigger** — entrance timelines, scroll-scatter parallax, word-by-word text fill
+- **Lenis** — inertial smooth scrolling, driven off the GSAP ticker
+- **three.js** — seven polished-brass shapes drifting through the page, driven by scroll
+- **next/font** — Anton (display), Oswald (condensed), Inter (UI)
+
+The hero orb, atmospheric haze, film grain and the AI Surveillance artwork are all
+CSS gradients and inline SVG. The only bitmaps are the real project assets in
+`public/projects/` (see below).
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    globals.css      design tokens, atmosphere, orb, marquee, wordmark
+    layout.tsx       fonts, metadata, grain overlay, smooth scroll
+    page.tsx         section composition
+  components/
+    Scene3D.tsx      three.js shapes floating behind the content
+    SmoothScroll.tsx Lenis + ScrollTrigger sync, anchor routing
+    Nav.tsx          sticky nav + mobile overlay menu
+    Hero.tsx         headline, HUD cards, orb, scroll scatter
+    Capabilities.tsx "From idea. To production." + stair-stepped cards
+    HighlightText.tsx scroll-linked word fill
+    CardArt.tsx      abstract SVG artwork for capability cards
+    Projects.tsx     Tasky, ReminderLink, AI Surveillance
+    Experience.tsx   role timeline
+    Skills.tsx       grouped skill grid + education
+    Contact.tsx      email / phone / links
+    Footer.tsx       oversized clipped wordmark
+  lib/
+    data.ts          ALL résumé content lives here
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project assets
 
-## Learn More
+`public/projects/` holds the real imagery pulled from each shipped product:
 
-To learn more about Next.js, take a look at the following resources:
+| File | Source |
+|---|---|
+| `tasky-site.png` | Screenshot of the live tasky.ae homepage |
+| `tasky-logo.png` | Tasky wordmark from tasky.ae |
+| `tasky-hero.png` | Tasky hero photo (spare, currently unused) |
+| `reminderlink-icon.jpg` | ReminderLink App Store icon |
+| `reminderlink-1..3.jpg` | ReminderLink App Store screenshots |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+These belong to their respective products; they are used here as portfolio
+references to shipped work. Swap them if a client prefers not to be shown.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Editing content
 
-## Deploy on Vercel
+Everything text-facing is in [`src/lib/data.ts`](src/lib/data.ts) — profile, roles,
+projects, skills, education, marquee items.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Each entry in `projects` can carry a `logo`, a wide `shot` (rendered in a browser
+frame), a `phones` array (rendered as a three-phone cluster), a live `href`, and a
+`stats` row. Projects with none of those fall back to the inline SVG artwork.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`profile` carries the contact details and social URLs used by the nav, contact
+section and footer.
+
+## Accessibility notes
+
+- Respects `prefers-reduced-motion`: Lenis is skipped and all scroll animations
+  resolve immediately.
+- Small uppercase body copy is a deliberate part of the design language; contrast
+  was raised above the reference to stay legible.

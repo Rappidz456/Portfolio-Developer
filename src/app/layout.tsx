@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Anton, Oswald, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import AiAgent from "@/components/AiAgent";
 import { profile } from "@/lib/data";
 
 const anton = Anton({
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="bg-void text-cream" suppressHydrationWarning>
         <div className="grain" aria-hidden />
         <SmoothScroll>{children}</SmoothScroll>
+        <AiAgent />
       </body>
     </html>
   );

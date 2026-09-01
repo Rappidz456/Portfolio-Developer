@@ -3,8 +3,14 @@
   "configurations": [
     {
       "name": "ali-portfolio",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "-p", "3001"],
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "D:/ali-asif-portfolio/node_modules/next/dist/bin/next",
+        "dev",
+        "D:/ali-asif-portfolio",
+        "-p",
+        "3001"
+      ],
       "port": 3001
     }
   ]

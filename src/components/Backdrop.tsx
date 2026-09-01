@@ -2,7 +2,7 @@
  * Fixed page backdrop.
  *
  * Sections themselves are transparent, so this is what everything sits on:
- * a warm studio wash, a faint grid for texture, and a vignette. Because it is
+ * a warm studio wash and a vignette. Because it is
  * fixed, the lighting stays put while the content scrolls past it.
  */
 export default function Backdrop() {
@@ -47,20 +47,6 @@ export default function Backdrop() {
           background:
             "radial-gradient(circle, rgba(56,189,248,0.07) 0%, transparent 66%)",
           filter: "blur(110px)",
-        }}
-      />
-
-      {/* fine grid, faded out toward the edges */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(245,239,197,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(245,239,197,0.05) 1px, transparent 1px)",
-          backgroundSize: "76px 76px",
-          maskImage:
-            "radial-gradient(120% 85% at 50% 32%, #000 18%, transparent 76%)",
-          WebkitMaskImage:
-            "radial-gradient(120% 85% at 50% 32%, #000 18%, transparent 76%)",
         }}
       />
 

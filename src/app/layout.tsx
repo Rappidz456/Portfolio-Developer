@@ -47,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${anton.variable} ${oswald.variable} ${inter.variable}`}
     >
-      <body className="bg-void text-cream">
+      <body className="bg-void text-cream" suppressHydrationWarning>
         <div className="grain" aria-hidden />
         <SmoothScroll>{children}</SmoothScroll>
       </body>

@@ -29,11 +29,6 @@ export function animateHero(el: HTMLElement) {
         .from(".hero-sub", { opacity: 0, y: 20, duration: 0.9 }, 0.5)
         .from(".hero-cta", { opacity: 0, y: 20, duration: 0.9 }, 0.62)
         .from(
-          ".hero-orb",
-          { opacity: 0, scale: 0.82, duration: 1.8, ease: "power3.out" },
-          0.1
-        )
-        .from(
           ".hero-card",
           { opacity: 0, y: 26, duration: 0.9, stagger: 0.08 },
           0.75

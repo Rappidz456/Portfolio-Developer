@@ -17,8 +17,8 @@ export const RING_TILT = 72;
 export type PointBudget = { sphere: number; ring: number; size: number };
 
 export function pointBudget(width: number): PointBudget {
-  if (width < 640) return { sphere: 1400, ring: 240, size: 0.042 };
-  if (width < 1024) return { sphere: 2100, ring: 320, size: 0.039 };
+  if (width < 640) return { sphere: 1700, ring: 260, size: 0.055 };
+  if (width < 1024) return { sphere: 2300, ring: 340, size: 0.046 };
   return { sphere: 3000, ring: 420, size: 0.036 };
 }
 

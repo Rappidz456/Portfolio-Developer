@@ -148,6 +148,12 @@ export default function HeroOrb() {
       tick();
     }
 
+    // The orb reveals itself once there is a frame on screen. Deliberately not
+    // driven by the hero's GSAP timeline: `.hero-orb` is also the target of a
+    // scroll-scrub tween, and the two fought over scale/opacity and left the
+    // wrapper pinned at the entrance tween's start values on some viewports.
+    mount.classList.remove("opacity-0", "scale-90");
+
     // Only burn frames while the hero is actually on screen.
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -193,7 +199,9 @@ export default function HeroOrb() {
     <div
       ref={host}
       aria-hidden
-      className="absolute inset-0 [&>canvas]:block [&>canvas]:h-full [&>canvas]:w-full"
+      // Starts hidden; the effect drops `opacity-0 scale-90` once there is a
+      // frame to show, and the transition carries it in.
+      className="absolute inset-0 scale-90 opacity-0 transition-[opacity,transform] duration-[1600ms] ease-out [&>canvas]:block [&>canvas]:h-full [&>canvas]:w-full"
     />
   );
 }

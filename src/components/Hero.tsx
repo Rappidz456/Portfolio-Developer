@@ -46,10 +46,10 @@ export default function Hero() {
       <Atmosphere />
 
       <div
-        className="hero-orb pointer-events-none absolute left-1/2 top-[70%] z-0 -translate-x-1/2 -translate-y-1/2"
+        className="hero-orb pointer-events-none absolute left-1/2 top-[50svh] z-0 -translate-x-1/2 -translate-y-1/2"
         aria-hidden
       >
-        <div className="relative h-[60vw] w-[60vw] max-h-[480px] max-w-[480px] min-h-[250px] min-w-[250px]">
+        <div className="relative h-[70vw] w-[70vw] max-h-[620px] max-w-[620px] min-h-[290px] min-w-[290px]">
           <div className="orb-halo" />
           <HeroOrb />
         </div>

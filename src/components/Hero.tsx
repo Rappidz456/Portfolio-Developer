@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Atmosphere from "./Atmosphere";
+import HeroOrb from "./HeroOrb";
 import { Badge, ButtonLink, Container, DisplayHeading, HudCard } from "./ui";
 import { heroCards, profile, type HudCardData } from "@/lib/data";
 import { animateHero } from "@/lib/motion";
@@ -45,12 +46,12 @@ export default function Hero() {
       <Atmosphere />
 
       <div
-        className="hero-orb pointer-events-none absolute left-1/2 top-[62%] z-0 -translate-x-1/2 -translate-y-1/2"
+        className="hero-orb pointer-events-none absolute left-1/2 top-[70%] z-0 -translate-x-1/2 -translate-y-1/2"
         aria-hidden
       >
-        <div className="relative h-[56vw] w-[56vw] max-h-[420px] max-w-[420px] min-h-[210px] min-w-[210px]">
+        <div className="relative h-[60vw] w-[60vw] max-h-[480px] max-w-[480px] min-h-[250px] min-w-[250px]">
           <div className="orb-halo" />
-          <div className="orb h-full w-full" />
+          <HeroOrb />
         </div>
       </div>
 

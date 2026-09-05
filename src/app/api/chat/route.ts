@@ -96,7 +96,7 @@ export async function POST(req: Request) {
   const text = message.trim();
   const sid = sessionId.slice(0, 64);
 
-  if (!useN8n) {
+  if (!useN8n || !webhookUrl || !sharedSecret) {
     try {
       const fromGroq = await groqReply(text, sid);
       return Response.json(fromGroq ?? localReply(text));

@@ -1,4 +1,6 @@
 import { agentContext } from "@/lib/agent-context";
+import { sectionForQuestion } from "@/lib/agent-nav";
+import { groqReply, localReply } from "@/lib/agent-reply";
 
 export const runtime = "nodejs";
 
@@ -57,16 +59,10 @@ function extractReply(payload: unknown): string | null {
 }
 
 export async function POST(req: Request) {
-  const webhookUrl = process.env.N8N_WEBHOOK_URL;
-  const sharedSecret = process.env.N8N_SHARED_SECRET;
-
-  if (!webhookUrl || !sharedSecret) {
-    console.error("[chat] N8N_WEBHOOK_URL or N8N_SHARED_SECRET is not set");
-    return Response.json(
-      { error: "The assistant is not configured yet." },
-      { status: 503 }
-    );
-  }
+  const groqKey = process.env.GROQ_API_KEY?.trim();
+  const webhookUrl = process.env.N8N_WEBHOOK_URL?.trim();
+  const sharedSecret = process.env.N8N_SHARED_SECRET?.trim();
+  const useN8n = Boolean(webhookUrl && sharedSecret && !groqKey);
 
   if (rateLimited(clientIp(req))) {
     return Response.json(
@@ -97,6 +93,19 @@ export async function POST(req: Request) {
     return Response.json({ error: "Session is required." }, { status: 400 });
   }
 
+  const text = message.trim();
+  const sid = sessionId.slice(0, 64);
+
+  if (!useN8n) {
+    try {
+      const fromGroq = await groqReply(text, sid);
+      return Response.json(fromGroq ?? localReply(text));
+    } catch (error) {
+      console.error("[chat] Groq fallback failed", error);
+      return Response.json(localReply(text));
+    }
+  }
+
   try {
     const upstream = await fetch(webhookUrl, {
       method: "POST",
@@ -105,8 +114,8 @@ export async function POST(req: Request) {
         "x-portfolio-secret": sharedSecret,
       },
       body: JSON.stringify({
-        message: message.trim(),
-        sessionId: sessionId.slice(0, 64),
+        message: text,
+        sessionId: sid,
         context: agentContext,
       }),
       signal: AbortSignal.timeout(N8N_TIMEOUT_MS),
@@ -129,7 +138,10 @@ export async function POST(req: Request) {
       );
     }
 
-    return Response.json({ reply });
+    return Response.json({
+      reply,
+      navigate: sectionForQuestion(text),
+    });
   } catch (error) {
     console.error("[chat] request to n8n failed", error);
     return Response.json(

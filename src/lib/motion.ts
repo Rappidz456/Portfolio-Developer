@@ -52,7 +52,7 @@ export function animateHero(el: HTMLElement) {
         .to(".hero-heading", { y: -190 }, 0)
         .to(".hero-sub", { x: -460, opacity: 0.25 }, 0)
         .to(".hero-cta", { x: 460, opacity: 0.25 }, 0)
-        .to(".hero-orb", { y: 90, scale: 1.08 }, 0)
+        .to(".hero-orb", { y: 90 }, 0)
         .to(".drift-left", { x: -150, y: -70 }, 0)
         .to(".drift-right", { x: 150, y: -70 }, 0)
         .to(".hero-pill", { y: -120, opacity: 0 }, 0);
@@ -61,7 +61,6 @@ export function animateHero(el: HTMLElement) {
     mm.add("(max-width: 1199px), (max-height: 859px)", () => {
       gsap.to(".hero-orb", {
         y: 120,
-        scale: 1.06,
         scrollTrigger: {
           trigger: el,
           start: "top top",

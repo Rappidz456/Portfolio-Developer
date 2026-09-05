@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Backdrop from "@/components/Backdrop";
+import Scene3D from "@/components/Scene3D";
 import Hero from "@/components/Hero";
 import Capabilities from "@/components/Capabilities";
 import Marquee from "@/components/Marquee";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <>
       <Backdrop />
+      <Scene3D />
       <Nav />
       <main>
         <Hero />
